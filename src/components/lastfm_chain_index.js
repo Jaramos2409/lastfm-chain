@@ -2,8 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Jumbotron, Col, Input, FormGroup } from 'reactstrap';
 import { Field, reduxForm  } from 'redux-form';
-import { connect } from 'react-redux';
-import { fetchArtistSimilar } from '../actions';
+import LastFMSharedArtists from './lastfm_shared_artists';
 
 
 class LastFMChainIndex extends Component {
@@ -26,16 +25,22 @@ class LastFMChainIndex extends Component {
         );
     }
 
+    selectChoiceIfFirst(choice) {
+        
+    }
+
     renderSelectInput(field) {
         const { meta: { touched, error } } = field;
         const className = `${touched && error ? 'has-danger' : ''}`;
 
         return (
             <FormGroup>
-                <Input type="select" className={className} >
-                    {_.map(field.options, option => {
+                <Input defaultValue="overall" type="select" className={className} {...field.input}>
+                    {_.map(field.options, choice => {
                         return (
-                            <option key={option}>{option}</option>
+                            <option key={choice.title} value={choice.value}> 
+                                {choice.title}
+                            </option>
                         );
                     })}
                 </Input>
@@ -47,18 +52,43 @@ class LastFMChainIndex extends Component {
     }
 
     onSubmit(values) {
-        // this.props.createPost(values, () => {
-        //     this.props.history.push("/");
-        // });
-        this.props.fetchArtistSimilar(values);
+        this.props.history.push(`/${values.username_1}/${values.username_2}/${values.timeframe}`);
     }
 
     render() {
         const { handleSubmit } = this.props;
-        const timeframeOptions = ['Timeframe', 'Overall', '1 Week', '1 Month', '3 Months', '6 Months', '1 Year'];
+        const timeframeOptions = [
+            {
+                title: 'Timeframe',
+                value: 'timeframe',
+            },
+            {
+                title: 'Overall',
+                value: 'overall',
+            },
+            {
+                title: '1 Week',
+                value: '7day',
+            },
+            {
+                title: '1 Month',
+                value: '1month',
+            },
+            {
+                title: '3 Months',
+                value: '3month',
+            },
+            {
+                title: '6 Months',
+                value: '6month',
+            },
+            {
+                title: 'Past Year',
+                value: '12month',
+            }
+        ];
 
         const { similarArtists } = this.props;
-        console.log(similarArtists["Buckethead"]);
 
         return (
             <div> 
@@ -69,39 +99,34 @@ class LastFMChainIndex extends Component {
                         <hr className="my-2" />
                         <p>Input the two usernames you wish to compare. Also select the timeframe in which you want to compare.</p>
                         {/* <p className="lead"> */}
-                            <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                                <Col sm="12" md={{ size: 4, offset: 4 }}>
-                                    <Field 
-                                        placeholder="Username 1"
-                                        name="username_1"
-                                        component={this.renderTextInput}
-                                    />
-                                    <Field 
-                                        placeholder="Username 2"
-                                        name="username_2"
-                                        component={this.renderTextInput}
-                                    />
-                                    <Field 
-                                        id="timeframeSelect"
-                                        placeholder="Timeframe" 
-                                        name="timeframe"
-                                        options={timeframeOptions} 
-                                        component={this.renderSelectInput} />
-                                    <button type="submit" className="btn btn-primary float-right">Submit</button>
-                                </Col>
-                            </form>
-                        {/* </p> */}
+                        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+                            <Col sm="12" md={{ size: 4, offset: 4 }}>
+                                <Field 
+                                    placeholder="Username 1"
+                                    name="username_1"
+                                    component={this.renderTextInput}
+                                />
+                                <Field 
+                                    placeholder="Username 2"
+                                    name="username_2"
+                                    component={this.renderTextInput}
+                                />
+                                <Field 
+                                    placeholder="Timeframe" 
+                                    name="timeframe"
+                                    options={timeframeOptions} 
+                                    component={this.renderSelectInput} />
+                                <button type="submit" className="btn btn-primary float-right">Submit</button>
+                            </Col>
+                        </form>
+                    </div>
+                    <div>
+                        <LastFMSharedArtists similarArtists={similarArtists}/>
                     </div>
               </Jumbotron>
             </div>
         );
     }
-}
-
-function mapStateToProps(state) {
-    return {
-        similarArtists: state.similarArtists
-    };
 }
 
 function validate(values) {
@@ -118,6 +143,4 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: 'LastFMChainIndexForm'
-})(
-    connect(mapStateToProps,{ fetchArtistSimilar })(LastFMChainIndex)
-);
+})(LastFMChainIndex);

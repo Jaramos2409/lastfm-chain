@@ -10,6 +10,7 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers';
 import LastFMChainHeader from './components/lastfm_chain_header';
 import LastFMChainIndex from './components/lastfm_chain_index';
+import LastFMCompareResults from './components/lastfm_compare_results'
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -19,6 +20,7 @@ ReactDOM.render(
             <div>
                 <LastFMChainHeader />
                 <Switch>
+                    <Route path="/:username_1/:username_2/:timeframe" component={LastFMCompareResults} />
                     <Route path="/" component={LastFMChainIndex} />
                 </Switch>
             </div>

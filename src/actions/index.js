@@ -6,8 +6,10 @@ export const FETCH_SIMILAR_ARTISTS = 'fetch_similar_artists';
 export function fetchArtistSimilar(values) {
     const { username_1, username_2, timeframe} = values;
 
+    console.log(timeframe);
+
     function getUserData(username) {
-        return axios.get(`${ROOT_URL}?method=user.gettopartists&user=${username}&api_key=${API_KEY}&format=json`);
+        return axios.get(`${ROOT_URL}?method=user.gettopartists&user=${username}&period=${timeframe}&api_key=${API_KEY}&format=json`);
     }
 
     var firstUserRequest = getUserData(username_1);

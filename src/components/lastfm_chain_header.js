@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
+import { Navbar } from 'reactstrap';
 
 class LastFMChainHeader extends Component {
   render() {
@@ -7,7 +7,7 @@ class LastFMChainHeader extends Component {
       <div>
         <Navbar color="dark" dark>
           {/* <NavbarBrand href="/" className="mr-auto text-center">Last.fm Chain</NavbarBrand> */}
-          <span class="navbar-text text-center">
+          <span className="navbar-text text-center">
             Last.fm Chain
           </span>
         </Navbar>

@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-// import { reducer as formReducer } from 'redux-form';
-// import PostsReducer from './reducer_posts';
+import { reducer as formReducer } from 'redux-form';
+import SimilarArtistsReducer from './reducer_similar_artists';
 
 const rootReducer = combineReducers({
-//   posts: PostsReducer,
-//   form: formReducer
+    form: formReducer,
+    similarArtists: SimilarArtistsReducer
 });
 
 export default rootReducer;

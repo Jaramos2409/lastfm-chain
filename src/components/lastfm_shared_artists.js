@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Card, CardImg, CardBody, CardTitle, CardText, CardFooter, CardHeader, CardImgOverlay, CardDeck, Row, Col} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardHeader, CardDeck, Row, Col} from 'reactstrap';
 import { BarChart   } from 'react-chartkick'
 
 

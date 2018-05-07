@@ -1,17 +1,16 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Jumbotron, Col, Input, FormGroup } from 'reactstrap';
+import { Col, Input, FormGroup, Form, Row, Card } from 'reactstrap';
 import { Field, reduxForm  } from 'redux-form';
-import LastFMSharedArtists from './lastfm_shared_artists';
 
 
 class LastFMChainIndex extends Component {
     renderTextInput(field) {
         const { meta: { touched, error } } = field;
-        const className = `${touched && error ? 'has-danger' : ''}`;
+        const className = `mb-2 mr-sm-2 mb-sm-0 ${touched && error ? 'has-danger' : ''}`;
 
         return (
-            <FormGroup className={className}>
+            <FormGroup  className={className}>
                 <Input 
                     className="form-control"
                     type="text"
@@ -25,17 +24,13 @@ class LastFMChainIndex extends Component {
         );
     }
 
-    selectChoiceIfFirst(choice) {
-        
-    }
-
     renderSelectInput(field) {
         const { meta: { touched, error } } = field;
-        const className = `${touched && error ? 'has-danger' : ''}`;
+        const className = `mb-2 mr-sm-2 mb-sm-0 ${touched && error ? 'has-danger' : ''}`;
 
         return (
             <FormGroup>
-                <Input defaultValue="overall" type="select" className={className} {...field.input}>
+                <Input name={`dropdown_${field.label}`} value="overall" type="select" className={className} {...field.input}>
                     {_.map(field.options, choice => {
                         return (
                             <option key={choice.title} value={choice.value}> 
@@ -52,16 +47,13 @@ class LastFMChainIndex extends Component {
     }
 
     onSubmit(values) {
-        this.props.history.push(`/${values.username_1}/${values.username_2}/${values.timeframe}`);
+        console.log(values);
+        this.props.history.push(`/${values.username_1}/${values.username_2}/${!values.timeframe ? 'overall' : values.timeframe}`);
     }
 
     render() {
         const { handleSubmit } = this.props;
         const timeframeOptions = [
-            {
-                title: 'Timeframe',
-                value: 'timeframe',
-            },
             {
                 title: 'Overall',
                 value: 'overall',
@@ -88,42 +80,34 @@ class LastFMChainIndex extends Component {
             }
         ];
 
-        const { similarArtists } = this.props;
-
         return (
-            <div> 
-                <Jumbotron fluid>
-                    <div className="text-center">
-                        <h1 className="display-3">Compare yourself to your friend!</h1>
-                        <p className="lead">See if you and your friend have been loving the same artists, albums, and tracks!</p>
-                        <hr className="my-2" />
-                        <p>Input the two usernames you wish to compare. Also select the timeframe in which you want to compare.</p>
-                        {/* <p className="lead"> */}
-                        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                            <Col sm="12" md={{ size: 4, offset: 4 }}>
-                                <Field 
-                                    placeholder="Username 1"
-                                    name="username_1"
-                                    component={this.renderTextInput}
-                                />
-                                <Field 
-                                    placeholder="Username 2"
-                                    name="username_2"
-                                    component={this.renderTextInput}
-                                />
-                                <Field 
-                                    placeholder="Timeframe" 
-                                    name="timeframe"
-                                    options={timeframeOptions} 
-                                    component={this.renderSelectInput} />
-                                <button type="submit" className="btn btn-primary float-right">Submit</button>
+            <div className="text-center main">
+                    <Row>
+                        <div className="col-centered">
+                            <Col>
+                                <Card className="card-background-section" body>
+                                    <p>Input the two usernames you wish to compare. Also select the timeframe in which you want to compare.</p>
+                                    <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
+                                            <Field 
+                                                placeholder="Your Last.fm Username"
+                                                name="username_1"
+                                                component={this.renderTextInput}
+                                            />
+                                            <Field 
+                                                placeholder="Your Friend's Username"
+                                                name="username_2"
+                                                component={this.renderTextInput}
+                                            />
+                                            <Field 
+                                                name="timeframe"
+                                                options={timeframeOptions} 
+                                                component={this.renderSelectInput} />
+                                            <button type="submit" className="btn btn-primary float-right">Submit</button>
+                                    </Form>
+                                </Card>
                             </Col>
-                        </form>
-                    </div>
-                    <div>
-                        <LastFMSharedArtists similarArtists={similarArtists}/>
-                    </div>
-              </Jumbotron>
+                        </div>
+                    </Row>
             </div>
         );
     }

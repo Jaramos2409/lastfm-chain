@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { Navbar } from 'reactstrap';
 
 class LastFMChainHeader extends Component {
   render() {
     return (
-      <div>
-        <Navbar color="dark" dark>
-          {/* <NavbarBrand href="/" className="mr-auto text-center">Last.fm Chain</NavbarBrand> */}
-          <span className="navbar-text text-center">
-            Last.fm Chain
-          </span>
-        </Navbar>
+      <div id="header" className="text-center">
+        <h1 className="display-3"><span className="last-fm-red-text">last.fm</span></h1>
+        <h2 className="display-4">Compare yourself to your friend! </h2>
+        <p className="lead">See if you and your friend have been loving the same artists, albums, and tracks!</p>
       </div>
     );
   }

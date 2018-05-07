@@ -8,7 +8,7 @@ export default function(state={}, action) {
             let topArtistsUserTwoData = _.mapKeys(action.payload.secondUserRequest.data.topartists.artist, "name");   
             let sharedSimilarArtists = _.intersection(_.keys(topArtistsUserOneData), _.keys(topArtistsUserTwoData));
             
-            if(sharedSimilarArtists.length>6) sharedSimilarArtists.length = 6;
+            if(sharedSimilarArtists.length>5) sharedSimilarArtists.length = 5;
             else if (sharedSimilarArtists.length < 1) return state;
             
             return _.map(sharedSimilarArtists, artist_name => {
@@ -16,7 +16,7 @@ export default function(state={}, action) {
                     artist_name,
                     user_one_artist_playcount:  topArtistsUserOneData[artist_name].playcount,
                     user_two_artist_playcount:  topArtistsUserTwoData[artist_name].playcount,
-                    artist_image: _.mapKeys(topArtistsUserTwoData[artist_name].image, "size")["large"]
+                    artist_image: _.mapKeys(topArtistsUserTwoData[artist_name].image, "size")["mega"]
                 };
             });
         default:

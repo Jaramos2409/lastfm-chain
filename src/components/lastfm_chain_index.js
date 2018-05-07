@@ -85,7 +85,7 @@ class LastFMChainIndex extends Component {
                     <Row>
                         <div className="col-centered">
                             <Col>
-                                <Card className="card-background-section" body>
+                                <Card style={{backgroundColor: '#323232', color: '#fff'}} body>
                                     <p>Input the two usernames you wish to compare. Also select the timeframe in which you want to compare.</p>
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
                                             <Field 
@@ -102,8 +102,8 @@ class LastFMChainIndex extends Component {
                                                 name="timeframe"
                                                 options={timeframeOptions} 
                                                 component={this.renderSelectInput} />
-                                            <button type="submit" className="btn btn-primary float-right">Submit</button>
-                                    </Form>
+                                            <button type="submit" className="btn float-right" style={{backgroundColor: '#b2b2b2'}}>Submit</button>
+                                    </Form> 
                                 </Card>
                             </Col>
                         </div>

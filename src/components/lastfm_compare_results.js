@@ -7,9 +7,6 @@ class LastFMCompareResults extends Component {
 
     componentDidMount() {
         const { username_1, username_2, timeframe } = this.props.match.params;
-        
-        console.log("In Compare Results:")
-        console.log(this.props.match.params);
 
         const values = {
             username_1,

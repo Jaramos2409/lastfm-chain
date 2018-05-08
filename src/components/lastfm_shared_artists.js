@@ -51,9 +51,9 @@ class LastFMSharedArtists extends Component {
                         <CardDeck>
                             {_.map(similarArtists, artist => {
                                 return(
-                                    <Card style={{backgroundColor: '#323232', color: '#fff', maxWidth: '18%' }} key={artist.artist_name+artist.artist_image["#text"]}>
-                                        <CardHeader className="h6">{artist.artist_name}</CardHeader>
-                                        <CardImg top width="75%" src={artist.artist_image["#text"]} />
+                                    <Card style={{backgroundColor: '#323232', color: '#fff'}} key={artist.artist_name+artist.artist_image["#text"]}>
+                                        <CardHeader className="card-header-footer">{artist.artist_name}</CardHeader>
+                                        <CardImg top width="70%" src={artist.artist_image["#text"]} />
                                         <CardBody style={{height: '10em'}}>  
                                             <CardTitle className="h6">Scrobbles:</CardTitle>
                                             <BarChart 

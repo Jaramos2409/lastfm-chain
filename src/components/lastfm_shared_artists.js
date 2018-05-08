@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Card, CardImg, CardBody, CardTitle, CardHeader, CardDeck, Row, Col} from 'reactstrap';
+import { Card, CardImg, CardBody, CardTitle, CardFooter, CardImgOverlay, CardHeader, CardDeck, Row, Col} from 'reactstrap';
 import { BarChart   } from 'react-chartkick';
+import { USER_PROFILE_URL, ARTIST_PROFILE_URL} from '../api/API_KEY';
 
 
 class LastFMSharedArtists extends Component {
@@ -13,7 +14,7 @@ class LastFMSharedArtists extends Component {
         }
 
         const options = {
-            bar: {groupWidth: "95%"},
+            bar: {groupWidth: "95%"},   
             hAxis: {
                 gridlines: {
                     color: 'transparent'
@@ -30,7 +31,7 @@ class LastFMSharedArtists extends Component {
                     color: '#fff', 
                     fontName: 'Segoe UI',
                     bold: true
-                } 
+                }
             },
             colors: ['#4c4c4c'],
             chartArea:{
@@ -46,15 +47,19 @@ class LastFMSharedArtists extends Component {
             <div className="sharedArtistsColumns">
                 <Row>
                     <Col>
-                        <h2 className="display-4">Top 5 Artists that {username_1} and {username_2} both enjoy!</h2>
+                        <h2 className="display-4">Top {similarArtists.length > 1 ?  `${similarArtists.length} Artists` : 'Artist'} that <a target="_blank" href={`${USER_PROFILE_URL}${username_1}`}>{username_1}</a> and <a target="_blank" href={`${USER_PROFILE_URL}${username_2}`}>{username_2}</a> both enjoy!</h2>
                         <hr className="my-2" />
                         <CardDeck>
                             {_.map(similarArtists, artist => {
                                 return(
-                                    <Card style={{backgroundColor: '#323232', color: '#fff'}} key={artist.artist_name+artist.artist_image["#text"]}>
-                                        <CardHeader className="card-header-footer">{artist.artist_name}</CardHeader>
-                                        <CardImg top width="70%" src={artist.artist_image["#text"]} />
-                                        <CardBody style={{height: '10em'}}>  
+                                    <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"18%"}} key={artist.artist_name+artist.artist_image["#text"]} inverse>
+                                        <CardImg top width="70%" src={artist.artist_image["#text"]} />                                        
+                                        <a target="_blank" href={`${ARTIST_PROFILE_URL}${artist.artist_name}`}>
+                                            <CardImgOverlay className="artist_image_overlay">
+                                                    <CardTitle>{artist.artist_name}</CardTitle>
+                                            </CardImgOverlay>
+                                        </a>
+                                        <CardFooter style={{height: '10em'}}>  
                                             <CardTitle className="h6">Scrobbles:</CardTitle>
                                             <BarChart 
                                                 data={[
@@ -62,7 +67,7 @@ class LastFMSharedArtists extends Component {
                                                     [username_2, artist.user_two_artist_playcount, 'BLUE']]}
                                                 library={options}
                                             />
-                                        </CardBody>
+                                        </CardFooter>
                                     </Card>
                                 );
                             })}

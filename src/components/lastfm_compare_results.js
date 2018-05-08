@@ -24,13 +24,13 @@ class LastFMCompareResults extends Component {
         const { username_1, username_2 } = this.props.match.params;
         const { similarArtists } = this.props;
 
-        const sharedLastFMDataRender = (
-            <LastFMSharedArtists username_1={username_1} username_2={username_2} similarArtists={similarArtists}/>
-        );
-
         if(!similarArtists) {
             return <div>Loading...</div>;
         }
+
+        const sharedLastFMDataRender = (
+            <LastFMSharedArtists username_1={username_1} username_2={username_2} similarArtists={similarArtists}/>
+        );
 
         return (
         <div>

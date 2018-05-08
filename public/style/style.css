@@ -56,6 +56,15 @@ pre {
     width: 100%;
 }
 
+#header a:hover,
+#header a:visited
+{
+	color:#fff;
+	text-decoration:  none;
+	outline : none;
+	border : 0;
+}
+
 .main {
     margin-top: 9em; 
     position: relative;

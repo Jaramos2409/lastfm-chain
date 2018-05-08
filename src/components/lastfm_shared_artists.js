@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Card, CardImg, CardBody, CardTitle, CardHeader, CardDeck, Row, Col} from 'reactstrap';
-import { BarChart   } from 'react-chartkick'
+import { BarChart   } from 'react-chartkick';
 
 
 class LastFMSharedArtists extends Component {
@@ -42,25 +42,24 @@ class LastFMSharedArtists extends Component {
             backgroundColor: { fill:'transparent' }
         };
 
-
         return (
             <div className="sharedArtistsColumns">
                 <Row>
                     <Col>
-                        <h2 className="display-4">Your Top 5 Artists {username_2} also enjoys!</h2>
+                        <h2 className="display-4">Top 5 Artists that {username_1} and {username_2} both enjoy!</h2>
                         <hr className="my-2" />
                         <CardDeck>
                             {_.map(similarArtists, artist => {
                                 return(
-                                    <Card style={{backgroundColor: '#323232', color: '#fff'}} key={artist.artist_name+artist.artist_image["#text"]}>
+                                    <Card style={{backgroundColor: '#323232', color: '#fff', maxWidth: '18%' }} key={artist.artist_name+artist.artist_image["#text"]}>
                                         <CardHeader className="h6">{artist.artist_name}</CardHeader>
-                                        <CardImg top width="70%" src={artist.artist_image["#text"]} />
+                                        <CardImg top width="75%" src={artist.artist_image["#text"]} />
                                         <CardBody style={{height: '10em'}}>  
                                             <CardTitle className="h6">Scrobbles:</CardTitle>
                                             <BarChart 
                                                 data={[
-                                                    [username_1, artist.user_one_artist_playcount],
-                                                    [username_2, artist.user_two_artist_playcount]]}
+                                                    [username_1, artist.user_one_artist_playcount, "RED"],
+                                                    [username_2, artist.user_two_artist_playcount, 'BLUE']]}
                                                 library={options}
                                             />
                                         </CardBody>

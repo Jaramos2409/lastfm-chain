@@ -9,7 +9,7 @@ export function fetchArtistSimilar(values) {
     console.log(timeframe);
 
     function getUserData(username) {
-        return axios.get(`${ROOT_URL}?method=user.gettopartists&user=${username}&period=${timeframe}&api_key=${API_KEY}&format=json`);
+        return axios.get(`${ROOT_URL}?method=user.gettopartists&user=${username}&period=${timeframe}&limit=1000&api_key=${API_KEY}&format=json`);
     }
 
     var firstUserRequest = getUserData(username_1);

@@ -56,13 +56,12 @@ class LastFMSharedTracks extends Component {
 
                             console.log(track);
                             return(
-                                // <Card top width="100%" key={track.artist_image} inverse>
                                     <Row key={track.artist_image} style={{ height: '8.2em'}}>
-                                        <Col xs="3" nopadding>
-                                            <img class="track-artist-image" src={track.artist_image['#text']} alt={track.artist_name} nopadding/>
+                                        <Col xs="3" >
+                                            <CardImg top width="70%" src={track.artist_image['#text']} alt={track.artist_name} />
                                         </Col>
-                                        <Col xs="9" nopadding>
-                                            <CardBody nopadding>
+                                        <Col xs="9" >
+                                            <CardBody >
                                                 <BarChart
                                                     data={[
                                                         {
@@ -72,28 +71,10 @@ class LastFMSharedTracks extends Component {
                                                         ]}
                                                     library={options}
                                                     key={track.artist_name+track.song_title}
-                                                    nopadding
                                                 />
                                             </CardBody>
                                         </Col>
                                     </Row>
-
-                                    // <CardImg src={track.artist_image['#text']} alt={track.artist_name} />
-                                    // <CardBody style={{height: '8em'}}>  
-                                    // <CardImgOverlay>
-                                    //     <BarChart
-                                    //         data={[
-                                    //             {
-                                    //                 name: "Scrobbles:", 
-                                    //                 data: [[username_1, track.user_one_artist_playcount], [username_2, track.user_two_artist_playcount]] 
-                                    //             }
-                                    //             ]}
-                                    //         library={options}
-                                    //         key={track.artist_name+track.song_title}
-                                    //     />
-                                    // </CardImgOverlay>
-                                    // </CardBody>
-                                // </Card>   
                             );
                         })}
                 </Card>

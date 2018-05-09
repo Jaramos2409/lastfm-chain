@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Col, Input, FormGroup, Form, Row, Card } from 'reactstrap';
+import { Col, Input, FormGroup, Form, Row, Card, Button } from 'reactstrap';
 import { Field, reduxForm  } from 'redux-form';
 
 
@@ -102,7 +102,7 @@ class LastFMChainIndex extends Component {
                                                 name="timeframe"
                                                 options={timeframeOptions} 
                                                 component={this.renderSelectInput} />
-                                            <button type="submit" className="btn float-right" style={{backgroundColor: '#b2b2b2'}}>Submit</button>
+                                            <Button type="submit" className="float-right">Submit</Button>
                                     </Form> 
                                 </Card>
                             </Col>

@@ -86,11 +86,12 @@ pre {
 .artist_image_overlay {
     background-color: rgba(50, 50, 50, 0.5);
     width: 100%;
-    height: 100%;
+	height: 100%;
+	font-weight: bolder;
 }
 
 .artist_image_overlay:hover {
-    background-color: rgba(50, 50, 50, 0.3);
+	background-color: rgba(50, 50, 50, 0.3);
 }
 
 .last-fm-red-text {
@@ -108,7 +109,7 @@ pre {
 }
 
 .sharedArtistsColumns {
-    padding: 0em 7em;
+    padding: 0em 7em 4em;
     color: #fff;
 }
 
@@ -126,3 +127,14 @@ pre {
     position: relative;
     background-color: #000;
 }
+
+.track-artist-image {
+	width: 100%;
+	max-width: 10em;
+	margin: 0 auto;
+}
+
+.nopadding {
+	padding: 0 !important;
+	margin: 0 !important;
+ }

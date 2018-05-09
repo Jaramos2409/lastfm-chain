@@ -1,4 +1,5 @@
-import {ROOT_URL, API_KEY} from '../api/API_KEY';
+import {API_KEY} from '../api/API_KEY';
+import { ROOT_API_URL } from '../constants';
 import axios from 'axios';
 
 export const FETCH_SIMILAR_ARTISTS = 'fetch_similar_artists';
@@ -9,7 +10,7 @@ export function fetchArtistSimilar(values) {
     const { username_1, username_2, timeframe} = values;
 
     function getUserData(username) {
-        return axios.get(`${ROOT_URL}?method=user.gettopartists&user=${username}&period=${timeframe}&limit=1000&api_key=${API_KEY}&format=json`);
+        return axios.get(`${ROOT_API_URL}?method=user.gettopartists&user=${username}&period=${timeframe}&limit=1000&api_key=${API_KEY}&format=json`);
     }
 
     var firstUserRequest = getUserData(username_1);
@@ -30,7 +31,7 @@ export function fetchSharedTopArtists(values) {
     const { username_1, username_2, timeframe} = values;
 
     function getUserData(username) {
-        return axios.get(`${ROOT_URL}?method=user.gettoptracks&user=${username}&period=${timeframe}&limit=1000&api_key=${API_KEY}&format=json`);
+        return axios.get(`${ROOT_API_URL}?method=user.gettoptracks&user=${username}&period=${timeframe}&limit=1000&api_key=${API_KEY}&format=json`);
     }
 
     var firstUserRequest = getUserData(username_1);

@@ -22,7 +22,7 @@ class LastFMCompareResults extends Component {
     }
 
     render() {
-        const { username_1, username_2 } = this.props.match.params;
+        const { username_1, username_2, timeframe } = this.props.match.params;
         const { similarArtists } = this.props;
         const { sharedTopTracks } = this.props;
 
@@ -31,7 +31,11 @@ class LastFMCompareResults extends Component {
         }
 
         const sharedLastFMDataRender = (
-            <LastFMSharedArtists username_1={username_1} username_2={username_2} similarArtists={similarArtists}/>
+            <LastFMSharedArtists 
+                username_1={username_1} 
+                username_2={username_2} 
+                timeframe={timeframe}
+                similarArtists={similarArtists}/>
         );
 
         return (
@@ -43,7 +47,11 @@ class LastFMCompareResults extends Component {
                         <Col>
                             <hr className="my-2" />
                             <CardDeck>
-                                <LastFMSharedTracks username_1={username_1} username_2={username_2} sharedTopTracks={sharedTopTracks} />
+                                <LastFMSharedTracks 
+                                    username_1={username_1} 
+                                    username_2={username_2} 
+                                    sharedTopTracks={sharedTopTracks} 
+                                />
                             </CardDeck>
                         </Col>
                     </Row>

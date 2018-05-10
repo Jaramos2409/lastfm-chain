@@ -1,17 +1,54 @@
 import _ from 'lodash';
+import uuidv1 from 'uuid/v1';
 import React, { Component } from 'react';
 import { BarChart } from 'react-chartkick';
 import { Card, CardDeck, CardImg, CardImgOverlay, Row, Col, CardSubtitle, CardText } from 'reactstrap';
 import LastFMNoData from './lastfm_no_data';
 
-
-class LastFMSharedTracks extends Component {
+class LastFMTopSixShared extends Component {
     render() {
         const { sharedTopSixData, username_1, username_2, header_title, timeframe, noDataHeaderType } = this.props;
 
         if (!sharedTopSixData) {
             return <div>Loading...</div>;
          }
+
+         const options = {
+            titleTextStyle: {
+                color: '#fff',
+                fontName: 'Open Sans',
+                fontSize: '14'
+            },
+            legend: { position: 'none' },
+            bar: {groupWidth: "95%"},   
+            hAxis: {
+                gridlines: {
+                    color: 'transparent'
+                },
+                textPosition: 'none' 
+            },
+            vAxis: { 
+                gridlines: {
+                    color: 'transparent'
+                },
+                textPosition: 'in',
+                viewWindowMode: 'pretty',
+                textStyle: {
+                    color: '#fff', 
+                    fontName: 'Segoe UI',
+                    bold: true
+                }
+            },
+            colors: ['#4c4c4c'],
+            chartArea:{
+                right:50,
+                left:0,
+                top:30,
+                width:'100%',
+                height:'18%',
+            },
+            backgroundColor: { fill:'transparent' }
+        };
 
          const sharedTopSixRender = (
             <Row>
@@ -22,45 +59,8 @@ class LastFMSharedTracks extends Component {
                         <Card style={{background: 'transparent', border:0, color: '#fff'}} body inverse>
                             <Row>
                                 {_.map(sharedTopSixData, topSixListElement => {
-                                    var options = {
-                                        titleTextStyle: {
-                                            color: '#fff',
-                                            fontName: 'Open Sans',
-                                            fontSize: '14'
-                                        },
-                                        legend: { position: 'none' },
-                                        bar: {groupWidth: "95%"},   
-                                        hAxis: {
-                                            gridlines: {
-                                                color: 'transparent'
-                                            },
-                                            textPosition: 'none' 
-                                        },
-                                        vAxis: { 
-                                            gridlines: {
-                                                color: 'transparent'
-                                            },
-                                            textPosition: 'in',
-                                            viewWindowMode: 'pretty',
-                                            textStyle: {
-                                                color: '#fff', 
-                                                fontName: 'Segoe UI',
-                                                bold: true
-                                            }
-                                        },
-                                        colors: ['#4c4c4c'],
-                                        chartArea:{
-                                            right:50,
-                                            left:0,
-                                            top:30,
-                                            width:'100%',
-                                            height:'18%',
-                                        },
-                                        backgroundColor: { fill:'transparent' }
-                                    };
-
                                     return(
-                                        <Col sm="2" className="p-0 text-left" key={topSixListElement.user_two_playcount+topSixListElement.image}> 
+                                        <Col sm="2" className="p-0 text-left" key={uuidv1()}> 
                                             <div className="track-artist-image">
                                                 <CardImg top className="img-responsive" width="70%" src={topSixListElement.image['#text']} alt={topSixListElement.artist_name} />
                                             </div>
@@ -100,4 +100,4 @@ class LastFMSharedTracks extends Component {
 
 
 
-export default LastFMSharedTracks;
+export default LastFMTopSixShared;

@@ -174,8 +174,19 @@ pre {
     background-color: #000;
 }
 
-.no-gutter
-{
-  padding-left: 0;
-  padding-right: 0;
+.share-network {
+	vertical-align: top;
+	display: inline-block;
+	margin-right: 30px;
+	text-align: center;
+	z-index: 9999;
+}
+  
+.share-network-button {
+	cursor: pointer;
+	z-index: 9999;
+}
+
+.share-network-button:hover:not(:active) {
+	opacity: 0.75;
 }

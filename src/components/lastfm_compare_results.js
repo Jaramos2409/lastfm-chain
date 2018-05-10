@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks, fetchSharedTopAlbums } from '../actions';
 import LastFMSharedArtists from './lastfm_shared_artists';
 import LastFMTopSixShared from './lastfm_top_six_shared';
+import LastFMShareButtons from './last-fm-share-buttons';
 import { bindActionCreators } from 'redux';
 import { ARTISTS_HEADER, TRACKS_HEADER, ALBUMS_HEADER, LOVED_TRACKS_HEADER } from '../constants';
 import { determineTimeframeString } from '../helpers';
@@ -10,6 +11,8 @@ import { determineTimeframeString } from '../helpers';
 class LastFMCompareResults extends Component {
     componentDidMount() {
         const { username_1, username_2, timeframe } = this.props.match.params;
+
+        console.log(window.location.href);
 
         const values = {
             username_1,
@@ -99,6 +102,7 @@ class LastFMCompareResults extends Component {
                 {sharedTopAlbumsDataRender}
                 {sharedTopTracksDataRender}
                 {sharedLovedTracksDataRender}
+                <LastFMShareButtons shareUrl={window.location.href} />
             </div>
         );
     }

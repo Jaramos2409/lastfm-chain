@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks } from '../actions';
+import { fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks, fetchSharedTopAlbums } from '../actions';
 import LastFMSharedArtists from './lastfm_shared_artists';
-import LastFMSharedTracks from './lastfm_shared_tracks';
+import LastFMTopSixShared from './lastfm_top_six_shared';
 import { bindActionCreators } from 'redux';
 import { ARTISTS_HEADER, TRACKS_HEADER, ALBUMS_HEADER, LOVED_TRACKS_HEADER } from '../constants';
+import { determineTimeframeString } from '../helpers';
 
 class LastFMCompareResults extends Component {
     componentDidMount() {
@@ -17,25 +18,9 @@ class LastFMCompareResults extends Component {
         }
 
         this.props.fetchArtistSimilar(values);
+        this.props.fetchSharedTopAlbums(values);        
         this.props.fetchSharedTopTracks(values);
         this.props.fetchSharedTopLovedTracks(values);
-    }
-
-    renderTimeframe(timeframe) {
-        switch(timeframe) {
-            case '7day':
-                return 'in the past 7 days';
-            case '1month':
-                return 'in the past month';
-            case '3month':
-                return 'in the past 3 months';
-            case '6month':
-                return 'in the past 6 months';
-            case '12month':
-                return 'in the past year'
-            default:
-                return 'overall';
-        }
     }
 
     renderHeaderQuantity(size, headerType) {
@@ -62,7 +47,7 @@ class LastFMCompareResults extends Component {
 
     render() {
         const { username_1, username_2, timeframe } = this.props.match.params;
-        const { similarArtists, sharedTopTracks, sharedLovedTracks } = this.props;
+        const { similarArtists, sharedTopTracks, sharedLovedTracks, sharedTopAlbums } = this.props;
 
         if(!similarArtists && !sharedTopTracks) {
             return <div>Loading...</div>;
@@ -78,26 +63,40 @@ class LastFMCompareResults extends Component {
         );
 
         const sharedTopTracksDataRender = (
-            <LastFMSharedTracks 
+            <LastFMTopSixShared 
                 username_1={username_1} 
                 username_2={username_2} 
-                sharedTopTracks={sharedTopTracks} 
+                timeframe={timeframe}
+                sharedTopSixData={sharedTopTracks} 
                 noDataHeaderType={TRACKS_HEADER}
-                header_title={`Top ${this.renderHeaderQuantity(sharedTopTracks.length, TRACKS_HEADER)} ${this.renderTimeframe(timeframe)}!`}/>
+                header_title={`Top ${this.renderHeaderQuantity(sharedTopTracks.length, TRACKS_HEADER)} ${determineTimeframeString(timeframe)}!`}/>
         );
 
         const sharedLovedTracksDataRender = (
-            <LastFMSharedTracks 
+            <LastFMTopSixShared 
                 username_1={username_1} 
                 username_2={username_2} 
+                timeframe={timeframe}
                 noDataHeaderType={LOVED_TRACKS_HEADER}
-                sharedTopTracks={sharedLovedTracks} 
+                sharedTopSixData={sharedLovedTracks} 
                 header_title={`Top ${this.renderHeaderQuantity(sharedLovedTracks.length, LOVED_TRACKS_HEADER)} of all time!`}/>
+        );
+
+        const sharedTopAlbumsDataRender = (
+            <LastFMTopSixShared 
+                username_1={username_1} 
+                username_2={username_2} 
+                timeframe={timeframe}
+                noDataHeaderType={ALBUMS_HEADER}
+                sharedTopSixData={sharedTopAlbums} 
+                header_title={`Top ${this.renderHeaderQuantity(sharedTopAlbums.length, ALBUMS_HEADER)} ${determineTimeframeString(timeframe)}!`}/>
+
         );
 
         return (
             <div className="text-center main">
                 {sharedLastFMDataRender}
+                {sharedTopAlbumsDataRender}
                 {sharedTopTracksDataRender}
                 {sharedLovedTracksDataRender}
             </div>
@@ -109,12 +108,13 @@ function mapStateToProps(state) {
     return {
         similarArtists: state.similarArtists,
         sharedTopTracks: state.sharedTopTracks,
-        sharedLovedTracks: state.sharedLovedTracks
+        sharedLovedTracks: state.sharedLovedTracks,
+        sharedTopAlbums: state.sharedTopAlbums
     };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks}, dispatch);
+    return bindActionCreators({fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks, fetchSharedTopAlbums}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LastFMCompareResults);

@@ -34,9 +34,9 @@ export default function(state={}, action) {
                 return _.map(sharedArtists, artist_name => {
                     return {
                         artist_name,
-                        user_one_artist_playcount:  topArtistsUserOneData[artist_name].playcount,
-                        user_two_artist_playcount:  topArtistsUserTwoData[artist_name].playcount,
-                        artist_image: _.mapKeys(topArtistsUserTwoData[artist_name].image, "size")["mega"]
+                        user_one_playcount:  topArtistsUserOneData[artist_name].playcount,
+                        user_two_playcount:  topArtistsUserTwoData[artist_name].playcount,
+                        image: _.mapKeys(topArtistsUserTwoData[artist_name].image, "size")["mega"]
                     };
                 });
             } else {

@@ -82,6 +82,7 @@ pre {
 	outline : none;
 	border : 0;
 }
+
 .main a:hover {
 	text-decoration:  underline;
 	color:#fff;
@@ -132,7 +133,15 @@ pre {
 }
 
 .last-fm-red-text {
-    color:#ba0000;
+	color:#ba0000;
+	
+}
+
+.last-fm-red-text img {
+	max-width: 100%;
+	height: 1em;
+	padding-right: 0.5em;
+	padding-bottom: 0.2em;
 }
 
 .artist-body-text {

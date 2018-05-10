@@ -33,12 +33,12 @@ export default function(state={}, action) {
 
                 return _.map(sharedTracks, track_name => {
                     return {
-                        song_title: topTracksUserOneData[track_name].name,
+                        title: topTracksUserOneData[track_name].name,
                         artist_name: topTracksUserOneData[track_name].artist.name,
-                        user_one_artist_playcount:  topTracksUserOneData[track_name].playcount,
-                        user_two_artist_playcount:  topTracksUserTwoData[track_name].playcount,
-                        track_url:  topTracksUserOneData[track_name].url,
-                        artist_image: _.mapKeys(topTracksUserOneData[track_name].image, "size")["extralarge"]
+                        user_one_playcount:  topTracksUserOneData[track_name].playcount,
+                        user_two_playcount:  topTracksUserTwoData[track_name].playcount,
+                        url:  topTracksUserOneData[track_name].url,
+                        image: _.mapKeys(topTracksUserOneData[track_name].image, "size")["extralarge"]
                     };
                 });
             } else {

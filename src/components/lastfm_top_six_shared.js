@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { BarChart } from 'react-chartkick';
-import { Card, CardDeck, CardTitle, CardImg, CardImgOverlay, Row, Col, CardSubtitle, CardText } from 'reactstrap';
+import { Card, CardDeck, CardImg, CardImgOverlay, Row, Col, CardSubtitle, CardText } from 'reactstrap';
 import LastFMNoData from './lastfm_no_data';
 
 

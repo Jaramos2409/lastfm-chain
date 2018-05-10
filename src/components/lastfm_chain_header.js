@@ -5,9 +5,9 @@ const LastFMChainHeader = ()  => {
   return (
     <div id="header" className="text-center">
           <h2 className="display-4">
-            <a target="_blank" href="https://www.last.fm/">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.last.fm/">
               <span className="last-fm-red-text">
-                <img className="img-responsive" src="/Lastfm_logo.svg.png"/>
+                <img className="img-responsive" src="/Lastfm_logo.svg.png" alt="last.fm:"/>
               </span>
             </a>
             <Link to="/">

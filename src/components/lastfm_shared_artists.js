@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardImg, CardTitle, CardSubtitle, CardText, CardFooter, CardImgOverlay, CardDeck, CardGroup, Row, Col } from 'reactstrap';
+import { Card, CardImg, CardTitle, CardFooter, CardDeck, Row, Col } from 'reactstrap';
 import { BarChart } from 'react-chartkick';
 import { USER_PROFILE_URL, ARTIST_PROFILE_URL } from '../constants';
+import LastFMNoData from './lastfm_no_data';
 
 
 class LastFMSharedArtists extends Component {
@@ -26,7 +26,7 @@ class LastFMSharedArtists extends Component {
     }
 
     render() {
-        const { similarArtists, username_1, username_2, timeframe } = this.props;
+        const { similarArtists, username_1, username_2, timeframe, noDataHeaderType } = this.props;
 
         if (!similarArtists) {
            return <div>Loading...</div>;
@@ -76,16 +76,16 @@ class LastFMSharedArtists extends Component {
                             return(
                                 <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"18%"}} key={artist.artist_name+artist.artist_image["#text"]} inverse>
                                    <div className="artist_image_overlay">
-                                        <div className="artist-image">
-                                            <a target="_blank" href={`${ARTIST_PROFILE_URL}${artist.artist_name}`}>
-                                                <CardImg top width="70%" src={artist.artist_image["#text"]} />                                        
-                                            </a>    
-                                        </div>
-                                        <div className="bottom-left">
-                                            <CardTitle className="text-left artist-image-text">
-                                                {artist.artist_name}
-                                            </CardTitle>
-                                        </div>
+                                        <a target="_blank" href={`${ARTIST_PROFILE_URL}${artist.artist_name}`}>
+                                            <div className="artist-image">
+                                                    <CardImg top width="70%" src={artist.artist_image["#text"]} />                                        
+                                            </div>
+                                            <div className="bottom-left">
+                                                <CardTitle className="text-left artist-image-text">
+                                                    {artist.artist_name}
+                                                </CardTitle>
+                                            </div>
+                                        </a>    
                                     </div>
                                     <CardFooter style={{height: '10em'}}>    
                                         <CardTitle className="h6">Scrobbles:</CardTitle>
@@ -105,25 +105,9 @@ class LastFMSharedArtists extends Component {
             </Row>
         );
 
-        const noSharedArtistsRender = (
-            <Row>
-                <Col>
-                    <h3><a target="_blank" href={`${USER_PROFILE_URL}${username_1}`}>{username_1}</a> and <a target="_blank" href={`${USER_PROFILE_URL}${username_2}`}>{username_2}</a> don't share any artists!</h3>
-                    <hr className="my-2" />
-                    <CardDeck>
-                        <Card body className="mx-auto text-center" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"18%"}} >
-                            <CardTitle>Please try again.</CardTitle>
-                            <CardText>Try a different time frame. If that doesn't work, then you and your friend are just too different!</CardText>
-                            <Link to="/" className="btn btn-secondary">Go back</Link>
-                        </Card>
-                    </CardDeck>
-                </Col>
-            </Row>
-        );
-
         return (
             <div className="sharedArtistsColumns">
-                {!(_.isEmpty(similarArtists)) ? sharedArtistsRender : noSharedArtistsRender}
+                {!(_.isEmpty(similarArtists)) ? sharedArtistsRender : <LastFMNoData username_1={username_1} username_2={username_2} noDataHeaderType={noDataHeaderType} /> }
             </div>
         );
     }

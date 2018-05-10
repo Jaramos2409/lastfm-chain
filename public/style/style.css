@@ -76,12 +76,15 @@ pre {
 }
 
 .main a,
-.main a:hover,
 .main a:visited {
 	color:#fff;
 	text-decoration:  none;
 	outline : none;
 	border : 0;
+}
+.main a:hover {
+	text-decoration:  underline;
+	color:#fff;
 }
 
 .artist_image_overlay {

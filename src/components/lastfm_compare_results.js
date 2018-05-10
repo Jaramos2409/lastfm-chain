@@ -38,26 +38,18 @@ class LastFMCompareResults extends Component {
                 similarArtists={similarArtists}/>
         );
 
+        const sharedTopTracksDataRender = (
+            <LastFMSharedTracks 
+                username_1={username_1} 
+                username_2={username_2} 
+                sharedTopTracks={sharedTopTracks} />
+        );
+
         return (
-        <div>
             <div className="text-center main">
                 {sharedLastFMDataRender}
-                <div className="sharedArtistsColumns">
-                    <Row>
-                        <Col>
-                            <hr className="my-2" />
-                            <CardDeck>
-                                <LastFMSharedTracks 
-                                    username_1={username_1} 
-                                    username_2={username_2} 
-                                    sharedTopTracks={sharedTopTracks} 
-                                />
-                            </CardDeck>
-                        </Col>
-                    </Row>
-                </div>
+                {sharedTopTracksDataRender}
             </div>
-        </div>
         );
     }
 }

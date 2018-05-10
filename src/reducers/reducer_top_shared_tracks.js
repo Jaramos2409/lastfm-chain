@@ -28,7 +28,7 @@ export default function(state={}, action) {
                     })
                     .value();
             
-                if(sharedTracks.length>5) sharedTracks.length = 5;
+                if(sharedTracks.length>6) sharedTracks.length = 6;
                 else if (sharedTracks.length < 1) return state;
 
                 return _.map(sharedTracks, track_name => {

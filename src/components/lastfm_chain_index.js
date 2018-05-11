@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Col, Input, FormGroup, Form, Row, Card, CardText, CardSubtitle, Button } from 'reactstrap';
+import { Col, Input, FormGroup, Form, Row, Card, CardDeck, CardText, CardSubtitle, Button } from 'reactstrap';
 import { Field, reduxForm  } from 'redux-form';
+import { USER_PROFILE_URL } from '../constants';
 
 
 class LastFMChainIndex extends Component {
@@ -82,12 +83,14 @@ class LastFMChainIndex extends Component {
 
         return (
             <div className="text-center main">
+                <div className="sharedArtistsColumns">
                     <Row>
-                        <div className="col-centered">
-                            <Col>
-                                <Card style={{backgroundColor: '#323232', color: '#fff'}} body>
-                                    <CardSubtitle>Input the two usernames you wish to compare (i.e. theneedledrop, rj, xchuckbronsonx, etc). </CardSubtitle>
+                        <Col>
+                            <CardDeck>
+                                <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"60%"}} body>
+                                    <CardSubtitle>Input the two usernames you wish to compare (i.e. <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}theneedledrop`}>theneedledrop</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}rj`}>rj</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}xchuckbronsonx`}>xchuckbronsonx</a>, etc). </CardSubtitle>
                                     <CardText>Also select the timeframe in which you want to compare.</CardText>
+                                    <div className="col-centered">
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
                                             <Field 
                                                 placeholder="Your Last.fm Username"
@@ -105,10 +108,12 @@ class LastFMChainIndex extends Component {
                                                 component={this.renderSelectInput} />
                                             <Button type="submit" className="float-right">Submit</Button>
                                     </Form> 
+                                    </div>
                                 </Card>
-                            </Col>
-                        </div>
+                            </CardDeck>
+                        </Col>
                     </Row>
+                </div>
             </div>
         );
     }

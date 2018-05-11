@@ -72,8 +72,6 @@ class LastFMCompareResults extends Component {
         const { username_1, username_2, timeframe } = this.props.match.params;
         const { similarArtists, sharedTopTracks, sharedLovedTracks, sharedTopAlbums } = this.props;
 
-        console.log(similarArtists);
-
         const sharedLastFMDataRender = (
             <LastFMSharedArtists 
                 username_1={username_1} 

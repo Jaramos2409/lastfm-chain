@@ -1,12 +1,9 @@
 import React from 'react';
-import { Card } from 'reactstrap';
 import { 
     FacebookShareButton, 
     FacebookIcon,
     TwitterShareButton,
     TwitterIcon,
-    PinterestShareButton,
-    PinterestIcon,
     LinkedinShareButton,
     LinkedinIcon,
     RedditShareButton,
@@ -31,11 +28,6 @@ const LastFMShareButtons = ({shareUrl}) => {
                 <TwitterShareButton className="share-network-button" url={shareUrl}>
                     <TwitterIcon size={32} round={true} />
                 </TwitterShareButton>
-            </div>
-            <div className="share-network">
-                <PinterestShareButton className="share-network-button" url={shareUrl}>
-                    <PinterestIcon size={32} round={true} />
-                </PinterestShareButton>
             </div>
             <div className="share-network">
                 <LinkedinShareButton className="share-network-button" url={shareUrl}>

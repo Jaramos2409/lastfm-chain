@@ -214,11 +214,3 @@ pre {
 .share-network-button:hover:not(:active) {
 	opacity: 0.75;
 }
-
-/* .switch-wrapper {
-	position: relative;
-}
-
-.switch-wrapper > div {
-	position: absolute;
-} */

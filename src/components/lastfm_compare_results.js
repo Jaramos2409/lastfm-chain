@@ -3,12 +3,22 @@ import { connect } from 'react-redux';
 import { fetchArtistSimilar, fetchSharedTopTracks, fetchSharedTopLovedTracks, fetchSharedTopAlbums } from '../actions';
 import LastFMSharedArtists from './lastfm_shared_artists';
 import LastFMTopSixShared from './lastfm_top_six_shared';
+import LastFMFooter from './lastfm_footer';
 import LastFMShareButtons from './last-fm-share-buttons';
+import ScrollToTop from 'react-scroll-up';
 import { bindActionCreators } from 'redux';
 import { ARTISTS_HEADER, TRACKS_HEADER, ALBUMS_HEADER, LOVED_TRACKS_HEADER } from '../constants';
 import { determineTimeframeString } from '../helpers';
+import { ScaleLoader } from 'react-spinners';
 
 class LastFMCompareResults extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          loading: true
+        }
+    }
+
     componentDidMount() {
         const { username_1, username_2, timeframe } = this.props.match.params;
 
@@ -20,10 +30,20 @@ class LastFMCompareResults extends Component {
             timeframe
         }
 
-        this.props.fetchArtistSimilar(values);
-        this.props.fetchSharedTopAlbums(values);        
-        this.props.fetchSharedTopTracks(values);
-        this.props.fetchSharedTopLovedTracks(values);
+        this.props.fetchArtistSimilar(values).then(() => {
+            this.props.fetchSharedTopAlbums(values).then(() => {
+                this.props.fetchSharedTopTracks(values).then(() => {
+                    this.props.fetchSharedTopLovedTracks(values).then(() => {
+                        this.setState({ loading: false });
+                    })
+                })
+            })
+        });
+        
+        
+        // this.props.fetchSharedTopAlbums(values);        
+        // this.props.fetchSharedTopTracks(values);
+        // this.props.fetchSharedTopLovedTracks(values);
     }
 
     renderHeaderQuantity(size, headerType) {
@@ -52,9 +72,7 @@ class LastFMCompareResults extends Component {
         const { username_1, username_2, timeframe } = this.props.match.params;
         const { similarArtists, sharedTopTracks, sharedLovedTracks, sharedTopAlbums } = this.props;
 
-        if(!similarArtists && !sharedTopTracks) {
-            return <div>Loading...</div>;
-        }
+        console.log(similarArtists);
 
         const sharedLastFMDataRender = (
             <LastFMSharedArtists 
@@ -96,13 +114,37 @@ class LastFMCompareResults extends Component {
 
         );
 
-        return (
-            <div className="text-center main">
+        const loadingDataRender = (
+            <div className='sharedArtistsColumns'>
+                <h2 className="display-4"> Loading </h2>
+                <ScaleLoader
+                    color={'#c1c1c1'} 
+                    height={200}
+                    width={10}
+                    radius={5}
+                    loading={this.state.loading} 
+                />
+            </div>
+        );
+
+        const loadedPageRender = (
+            <div>
+                <LastFMShareButtons shareUrl={window.location.href} />
+                <hr className="my-2" />
                 {sharedLastFMDataRender}
                 {sharedTopAlbumsDataRender}
                 {sharedTopTracksDataRender}
                 {sharedLovedTracksDataRender}
-                <LastFMShareButtons shareUrl={window.location.href} />
+                <ScrollToTop showUnder={160}>
+                    <button className="btn btn-secondary" style={{fontSize: "2em"}}>^</button>
+                </ScrollToTop>
+                <LastFMFooter/>
+            </div>
+        );
+
+        return (
+            <div className="text-center main">
+                {this.state.loading ? loadingDataRender : loadedPageRender}
             </div>
         );
     }

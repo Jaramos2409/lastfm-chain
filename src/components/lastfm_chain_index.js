@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Col, Input, FormGroup, Form, Row, Card, Button } from 'reactstrap';
+import { Col, Input, FormGroup, Form, Row, Card, CardText, CardSubtitle, Button } from 'reactstrap';
 import { Field, reduxForm  } from 'redux-form';
 
 
@@ -86,7 +86,8 @@ class LastFMChainIndex extends Component {
                         <div className="col-centered">
                             <Col>
                                 <Card style={{backgroundColor: '#323232', color: '#fff'}} body>
-                                    <p>Input the two usernames you wish to compare. Also select the timeframe in which you want to compare.</p>
+                                    <CardSubtitle>Input the two usernames you wish to compare (i.e. theneedledrop, rj, xchuckbronsonx, etc). </CardSubtitle>
+                                    <CardText>Also select the timeframe in which you want to compare.</CardText>
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
                                             <Field 
                                                 placeholder="Your Last.fm Username"

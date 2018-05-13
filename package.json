@@ -1,7 +1,7 @@
 {
-  "homepage": "http://www.eulal.io/lastfm-compare",
+  "homepage": "http://www.eulal.io/",
   "name": "lastfm-compare",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "bootstrap": "^4.1.1",

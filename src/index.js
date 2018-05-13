@@ -16,12 +16,12 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter basename={'/lastfm-compare'}>
+        <BrowserRouter basename={`${process.env.PUBLIC_URL}`}>
             <div>
                 <LastFMChainHeader />
                 <Switch>
-                    <Route path={`${process.env.PUBLIC_URL}/:username_1/:username_2/:timeframe`} component={LastFMCompareResults} />
-                    <Route path={`${process.env.PUBLIC_URL}/`} component={LastFMChainIndex} />
+                    <Route path={`/:username_1/:username_2/:timeframe`} component={LastFMCompareResults} />
+                    <Route path={`/`} component={LastFMChainIndex} />
                 </Switch>
                 <LastFMFooter />
             </div>

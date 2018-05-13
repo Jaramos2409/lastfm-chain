@@ -10,7 +10,7 @@ const LastFMChainHeader = ()  => {
                 <img className="img-responsive" src="/Lastfm_logo.svg.png" alt="last.fm:"/>
               </span>
             </a>
-            <Link to="/">
+            <Link to={`${process.env.PUBLIC_URL}/`}>
               Compare yourself to your friend!
             </Link>
           </h2>

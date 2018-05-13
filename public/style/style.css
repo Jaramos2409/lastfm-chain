@@ -68,7 +68,7 @@ pre {
 }
 
 #footer {
-    background-color: transparent;
+    background-color: #000;
     color:#fff;
     overflow: hidden;
     position: fixed; 

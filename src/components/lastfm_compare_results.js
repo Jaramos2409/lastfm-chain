@@ -130,7 +130,7 @@ class LastFMCompareResults extends Component {
                 {sharedTopAlbumsDataRender}
                 {sharedTopTracksDataRender}
                 {sharedLovedTracksDataRender}
-                <ScrollToTop showUnder={160}>
+                <ScrollToTop showUnder={1000}>
                     <button className="btn btn-secondary" style={{fontSize: "2em"}}>^</button>
                 </ScrollToTop>
                 <LastFMFooter/>

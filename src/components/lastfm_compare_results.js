@@ -41,9 +41,6 @@ class LastFMCompareResults extends Component {
         });
         
         
-        // this.props.fetchSharedTopAlbums(values);        
-        // this.props.fetchSharedTopTracks(values);
-        // this.props.fetchSharedTopLovedTracks(values);
     }
 
     renderHeaderQuantity(size, headerType) {

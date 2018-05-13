@@ -1,59 +1,15 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Col, Input, FormGroup, Form, Row, Card, CardDeck, CardText, CardSubtitle, Button } from 'reactstrap';
-import { Field, reduxForm  } from 'redux-form';
+import { connect } from 'react-redux';
+import { verifyUsernameValid } from '../actions';
+import { Fields, reduxForm, SubmissionError } from 'redux-form';
 import { USER_PROFILE_URL } from '../constants';
-
+import { bindActionCreators } from 'redux';
 
 class LastFMChainIndex extends Component {
-    renderTextInput(field) {
-        const { meta: { touched, error } } = field;
-        const className = `mb-2 mr-sm-2 mb-sm-0 ${touched && error ? 'has-danger' : ''}`;
 
-        return (
-            <FormGroup  className={className}>
-                <Input 
-                    className="form-control"
-                    type="text"
-                    placeholder={field.placeholder}
-                    {...field.input}
-                />
-                <div className="text-help">
-                    {touched ? error : ''}
-                </div>
-            </FormGroup>
-        );
-    }
-
-    renderSelectInput(field) {
-        const { meta: { touched, error } } = field;
-        const className = `mb-2 mr-sm-2 mb-sm-0 ${touched && error ? 'has-danger' : ''}`;
-
-        return (
-            <FormGroup>
-                <Input name={`dropdown_${field.label}`} value="overall" type="select" className={className} {...field.input}>
-                    {_.map(field.options, choice => {
-                        return (
-                            <option key={choice.title} value={choice.value}> 
-                                {choice.title}
-                            </option>
-                        );
-                    })}
-                </Input>
-                <div className="text-help">
-                    {touched ? error : ''}
-                </div>
-            </FormGroup>
-        );
-    }
-
-    onSubmit(values) {
-        console.log(values);
-        this.props.history.push(`/${values.username_1}/${values.username_2}/${!values.timeframe ? 'overall' : values.timeframe}`);
-    }
-
-    render() {
-        const { handleSubmit } = this.props;
+    renderFields(fields) {
         const timeframeOptions = [
             {
                 title: 'Overall',
@@ -81,6 +37,76 @@ class LastFMChainIndex extends Component {
             }
         ];
 
+        return ( 
+            <div>
+                <FormGroup className={`d-inline mb-2 mr-sm-2 mb-sm-0`}>
+                    <Input 
+                        className="form-control"
+                        type="text"
+                        placeholder="Your Last.fm Username"
+                        {...fields.username_1.input}
+                    />
+                </FormGroup>
+                <FormGroup  className={`d-inline mb-2 mr-sm-2 mb-sm-0`}>
+                    <Input 
+                        className="form-control"
+                        type="text"
+                        placeholder="Your Friend's Username"
+                        {...fields.username_2.input}
+                    />
+                </FormGroup>
+                <FormGroup className="d-inline">
+                    <Input name={`dropdown_${fields.timeframe.label}`} value="overall" type="select" className={`d-inline mb-2 mr-sm-2 mb-sm-0 ${fields.timeframe.meta.touched && fields.timeframe.meta.error ? 'has-danger' : ''}`} {...fields.timeframe.input}>
+                        {_.map(timeframeOptions, choice => {
+                            return (
+                                <option key={choice.title} value={choice.value}> 
+                                    {choice.title}
+                                </option>
+                            );
+                        })}
+                    </Input>
+                </FormGroup>
+                <Button type="submit" className="d-inline float-right">Submit</Button>
+                <div className="text-help">
+                    {fields.username_1.meta.touched && fields.username_1.meta.error && <span className="last-fm-red-text ">{fields.username_1.meta.error}</span>}
+                </div>
+                <div className="text-help">
+                    {fields.username_2.meta.touched && fields.username_2.meta.error && <span className="last-fm-red-text ">{fields.username_2.meta.error}</span>}
+                </div>
+                <div className="text-help">
+                    {fields.timeframe.meta.touched && fields.timeframe.meta.error && <span className="last-fm-red-text ">{fields.timeframe.meta.error}</span>}
+                </div>
+            </div>
+        );
+    }
+
+    onSubmit(values) {
+        return this.props.verifyUsernameValid(values).then(() => {
+            const { isUserOneValid, isUserTwoValid } = this.props.usernameValidation;
+
+            if (!isUserOneValid) {
+                throw new SubmissionError({
+                    username_1: 'User one does not exist',
+                    _error: 'Please use a valid Last.fm username!'
+                })
+            } 
+            if (!isUserTwoValid) {
+                throw new SubmissionError({
+                    username_2: 'User two does not exist',
+                    _error: 'Please use a valid Last.fm username!'
+                })
+            }
+            if (isUserOneValid && isUserTwoValid) {
+                this.props.history.push(`/${values.username_1}/${values.username_2}/${!values.timeframe ? 'overall' : values.timeframe}`);
+            }
+        });
+    }
+
+    
+
+    render() {
+        const { handleSubmit, error } = this.props;
+
         return (
             <div className="text-center main">
                 <div className="sharedArtistsColumns">
@@ -92,22 +118,9 @@ class LastFMChainIndex extends Component {
                                     <CardText>Also select the timeframe in which you want to compare.</CardText>
                                     <div className="col-centered">
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
-                                            <Field 
-                                                placeholder="Your Last.fm Username"
-                                                name="username_1"
-                                                component={this.renderTextInput}
-                                            />
-                                            <Field 
-                                                placeholder="Your Friend's Username"
-                                                name="username_2"
-                                                component={this.renderTextInput}
-                                            />
-                                            <Field 
-                                                name="timeframe"
-                                                options={timeframeOptions} 
-                                                component={this.renderSelectInput} />
-                                            <Button type="submit" className="float-right">Submit</Button>
+                                        <Fields names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields}/>
                                     </Form> 
+                                    {error && <strong>{error}</strong>}
                                     </div>
                                 </Card>
                             </CardDeck>
@@ -125,12 +138,31 @@ function validate(values) {
 
     // Validate the inputs from "values"
 
+    if (!values.username_1) {
+        errors.username_1 = "Enter your username!"
+    }
+    if(!values.username_2) {
+        errors.username_2 = "Enter your friend's username!"
+    }
+
     // If errors is empty, the form is fine to submit
     // If errors has *any* properties, redux form assumes form is invalid
     return errors;
 }
 
+function mapStateToProps(state) {
+    return {
+        usernameValidation: state.usernameValidation
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ verifyUsernameValid }, dispatch);
+} 
+
 export default reduxForm({
     validate,
     form: 'LastFMChainIndexForm'
-})(LastFMChainIndex);
+})(
+    connect(mapStateToProps, mapDispatchToProps)(LastFMChainIndex)
+);

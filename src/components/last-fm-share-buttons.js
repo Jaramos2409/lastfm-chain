@@ -19,6 +19,7 @@ import {
 const LastFMShareButtons = ({shareUrl}) => {
     return (
         <div className="share-networks-container">
+            <h4>Share these results:</h4>
             <div className="share-network">
                 <FacebookShareButton className="share-network-button" url={shareUrl}>
                     <FacebookIcon size={32} round={true} />

@@ -1,5 +1,5 @@
 {
-  "homepage": "http://www.eulal.io/lastfm-compare",
+  "homepage": "https://www.eulal.io/lastfm-compare",
   "name": "lastfm-compare",
   "version": "0.1.1",
   "private": true,
@@ -24,6 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prod": "npm run clean && webpack",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

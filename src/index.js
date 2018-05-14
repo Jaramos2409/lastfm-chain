@@ -16,7 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter basename='/lastfm-compare/'>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div>
                 <LastFMChainHeader />
                 <Switch>

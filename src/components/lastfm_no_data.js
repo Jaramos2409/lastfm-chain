@@ -35,7 +35,7 @@ const LastFMNoData = ({username_1, username_2, noDataHeaderType, timeframe}) => 
                         <Card body className="mx-auto text-center" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"18%"}} >
                             <CardTitle>Please try again.</CardTitle>
                             <CardText>Try a different time frame. If that doesn't work, then you and your friend are just too different!</CardText>
-                            <Link to={`/`} className="btn btn-secondary">Go back</Link>
+                            <Link to='/' className="btn btn-secondary">Go back</Link>
                         </Card>
                     </CardDeck>
                 </Col>

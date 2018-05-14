@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { Route, Switch, HashRouter } from 'react-router-dom';
 import promise from 'redux-promise';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +16,7 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 ReactDOM.render(
     <Provider store={createStoreWithMiddleware(reducers)}>
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter basename={process.env.PUBLIC_URL}>
             <div>
                 <LastFMChainHeader />
                 <Switch>
@@ -25,7 +25,7 @@ ReactDOM.render(
                 </Switch>
                 <LastFMFooter />
             </div>
-        </BrowserRouter>
+        </HashRouter>
     </Provider>
 , document.getElementById('container'));
 

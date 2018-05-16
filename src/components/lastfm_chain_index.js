@@ -8,6 +8,24 @@ import { USER_PROFILE_URL } from '../constants';
 import { bindActionCreators } from 'redux';
 
 class LastFMChainIndex extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          submitButtonText: 'Submit'
+        }
+    }
+
+    onClickButton() {
+        this.setState({
+            submitButtonText: 'Loading'
+        });
+    }
+
+    onSubmitFailed() {
+        this.setState({
+            submitButtonText: 'Submit'
+        });
+    }
 
     renderFields(fields) {
         const timeframeOptions = [
@@ -39,7 +57,7 @@ class LastFMChainIndex extends Component {
 
         return ( 
             <div>
-                <FormGroup className={`mb-2 mr-sm-2 mb-sm-0 pb-2`}>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0 pb-2">
                     <Input 
                         className="form-control"
                         type="text"
@@ -47,7 +65,7 @@ class LastFMChainIndex extends Component {
                         {...fields.username_1.input}
                     />
                 </FormGroup>
-                <FormGroup  className={`mb-2 mr-sm-2 mb-sm-0 pb-2`}>
+                <FormGroup  className="mb-2 mr-sm-2 mb-sm-0 pb-2">
                     <Input 
                         className="form-control"
                         type="text"
@@ -66,7 +84,7 @@ class LastFMChainIndex extends Component {
                         })}
                     </Input>
                 </FormGroup>
-                <Button type="submit">Submit</Button>
+                <Button type="submit">{this.state.submitButtonText}</Button>
                 <div className="text-help">
                     {fields.username_1.meta.touched && fields.username_1.meta.error && <span className="last-fm-red-text ">{fields.username_1.meta.error}</span>}
                 </div>
@@ -81,16 +99,20 @@ class LastFMChainIndex extends Component {
     }
 
     onSubmit(values) {
+        this.onClickButton();
+
         return this.props.verifyUsernameValid(values).then(() => {
             const { isUserOneValid, isUserTwoValid } = this.props.usernameValidation;
 
             if (!isUserOneValid) {
+                this.onSubmitFailed();
                 throw new SubmissionError({
                     username_1: 'User one does not exist',
                     _error: 'Please use a valid Last.fm username!'
                 })
             } 
             if (!isUserTwoValid) {
+                this.onSubmitFailed();
                 throw new SubmissionError({
                     username_2: 'User two does not exist',
                     _error: 'Please use a valid Last.fm username!'
@@ -102,23 +124,21 @@ class LastFMChainIndex extends Component {
         });
     }
 
-    
-
     render() {
         const { handleSubmit, error } = this.props;
 
         return (
             <div className="text-center main">
-                <div className="sharedArtistsColumns">
+                <div className="sharedArtistsColumns pb-5">
                     <Row>
                         <Col>
                             <CardDeck>
-                                <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"60%"}} body>
+                                <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"80%"}} body>
                                     <CardSubtitle>Input the two usernames you wish to compare (i.e. <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}theneedledrop`}>theneedledrop</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}rj`}>rj</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}xchuckbronsonx`}>xchuckbronsonx</a>, etc). </CardSubtitle>
                                     <CardText>Also select the timeframe in which you want to compare.</CardText>
                                     <div className="col-centered">
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                                        <Fields names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields}/>
+                                        <Fields names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields.bind(this)}/>
                                     </Form> 
                                     {error && <strong>{error}</strong>}
                                     </div>
@@ -133,10 +153,7 @@ class LastFMChainIndex extends Component {
 }
 
 function validate(values) {
-    // value -> { title: 'asdf', categories: 'asdf', content: 'assadasd'}
     const errors = {};
-
-    // Validate the inputs from "values"
 
     if (!values.username_1) {
         errors.username_1 = "Enter your username!"
@@ -145,8 +162,6 @@ function validate(values) {
         errors.username_2 = "Enter your friend's username!"
     }
 
-    // If errors is empty, the form is fine to submit
-    // If errors has *any* properties, redux form assumes form is invalid
     return errors;
 }
 

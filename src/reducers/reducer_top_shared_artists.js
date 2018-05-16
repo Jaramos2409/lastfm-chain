@@ -23,7 +23,8 @@ export default function(state={}, action) {
                     .thru(artistList => {
                         var meanOfRanges = _.mean(listOfRangesBetweenScrobbles);
                         return _.remove(artistList, artist_name => {
-                            return Math.abs(+topArtistsUserOneData[artist_name].playcount - +topArtistsUserTwoData[artist_name].playcount) < meanOfRanges;
+                            const range = Math.abs(+topArtistsUserOneData[artist_name].playcount - +topArtistsUserTwoData[artist_name].playcount);
+                            return range < meanOfRanges || range < 5;
                         });
                     })
                     .value();

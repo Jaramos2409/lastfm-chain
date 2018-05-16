@@ -23,7 +23,8 @@ export default function(state={}, action) {
                     .thru(albumList => {
                         var meanOfRanges = _.mean(listOfRanges);
                         return _.remove(albumList, album_name => {
-                            return Math.abs(+topAlbumsUserOneData[album_name].playcount - +topAlbumsUserTwoData[album_name].playcount) < meanOfRanges;
+                            const range = Math.abs(+topAlbumsUserOneData[album_name].playcount - +topAlbumsUserTwoData[album_name].playcount)
+                            return range < meanOfRanges || range < 5;
                         });
                     })
                     .value();

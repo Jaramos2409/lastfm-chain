@@ -58,11 +58,11 @@ class LastFMSharedArtists extends Component {
                     <CardDeck>
                         {_.map(similarArtists, artist => {
                             return(
-                                <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"18%"}} key={artist.artist_name+artist.image["#text"]} inverse>
+                                <Card className="mx-auto" style={{backgroundColor: '#323232', color: '#fff', maxWidth:"90%"}} key={artist.artist_name+artist.image["#text"]} inverse>
                                    <div className="artist_image_overlay">
                                         <a target="_blank" href={`${ARTIST_PROFILE_URL}${artist.artist_name}`}>
                                             <div className="artist-image">
-                                                    <CardImg top width="70%" src={artist.image["#text"]} />                                        
+                                                    <CardImg className="img-responsive" top width="70%" src={artist.image["#text"]} />                                        
                                             </div>
                                             <div className="bottom-left">
                                                 <CardTitle className="text-left artist-image-text">

@@ -39,8 +39,6 @@ class LastFMCompareResults extends Component {
                 })
             })
         });
-        
-        
     }
 
     renderHeaderQuantity(size, headerType) {

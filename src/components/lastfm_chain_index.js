@@ -39,7 +39,7 @@ class LastFMChainIndex extends Component {
 
         return ( 
             <div>
-                <FormGroup className={`d-inline mb-2 mr-sm-2 mb-sm-0`}>
+                <FormGroup className={`mb-2 mr-sm-2 mb-sm-0 pb-2`}>
                     <Input 
                         className="form-control"
                         type="text"
@@ -47,7 +47,7 @@ class LastFMChainIndex extends Component {
                         {...fields.username_1.input}
                     />
                 </FormGroup>
-                <FormGroup  className={`d-inline mb-2 mr-sm-2 mb-sm-0`}>
+                <FormGroup  className={`mb-2 mr-sm-2 mb-sm-0 pb-2`}>
                     <Input 
                         className="form-control"
                         type="text"
@@ -55,7 +55,7 @@ class LastFMChainIndex extends Component {
                         {...fields.username_2.input}
                     />
                 </FormGroup>
-                <FormGroup className="d-inline">
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0 pb-2">
                     <Input name={`dropdown_${fields.timeframe.label}`} value="overall" type="select" className={`d-inline mb-2 mr-sm-2 mb-sm-0 ${fields.timeframe.meta.touched && fields.timeframe.meta.error ? 'has-danger' : ''}`} {...fields.timeframe.input}>
                         {_.map(timeframeOptions, choice => {
                             return (
@@ -66,7 +66,7 @@ class LastFMChainIndex extends Component {
                         })}
                     </Input>
                 </FormGroup>
-                <Button type="submit" className="d-inline float-right">Submit</Button>
+                <Button type="submit">Submit</Button>
                 <div className="text-help">
                     {fields.username_1.meta.touched && fields.username_1.meta.error && <span className="last-fm-red-text ">{fields.username_1.meta.error}</span>}
                 </div>
@@ -117,7 +117,7 @@ class LastFMChainIndex extends Component {
                                     <CardSubtitle>Input the two usernames you wish to compare (i.e. <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}theneedledrop`}>theneedledrop</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}rj`}>rj</a>, <a target="_blank" rel="noopener noreferrer" href={`${USER_PROFILE_URL}xchuckbronsonx`}>xchuckbronsonx</a>, etc). </CardSubtitle>
                                     <CardText>Also select the timeframe in which you want to compare.</CardText>
                                     <div className="col-centered">
-                                    <Form onSubmit={handleSubmit(this.onSubmit.bind(this))} inline>
+                                    <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
                                         <Fields names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields}/>
                                     </Form> 
                                     {error && <strong>{error}</strong>}

@@ -62,7 +62,7 @@ class LastFMSharedArtists extends Component {
                                    <div className="artist_image_overlay">
                                         <a target="_blank" href={`${ARTIST_PROFILE_URL}${artist.artist_name}`}>
                                             <div className="artist-image">
-                                                    <CardImg className="img-responsive" top width="70%" src={artist.image["#text"]} />                                        
+                                                    <CardImg className="img-responsive" top width="70%" src={artist.image["#text"]} alt={artist.artist_name}/>                                        
                                             </div>
                                             <div className="bottom-left">
                                                 <CardTitle className="text-left artist-image-text">

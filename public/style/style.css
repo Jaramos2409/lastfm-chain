@@ -71,6 +71,10 @@ pre {
 	border : 0;
 }
 
+#header-title {
+	display: inline;
+}
+
 #footer {
     background-color: #000;
     color:#fff;
@@ -219,21 +223,14 @@ pre {
 	opacity: 0.75;
 }
 
-@media screen and (max-width: 500px) {
-	.header a {
-		float: none;
-		display: block;
-		text-align: left;
-	}
-	.header-right {
-		float: none;
-	}
-}
-
-@media (max-width: 575.98px) {
+@media (max-width: 700px) {
 
 	#header {
 		padding: 1em 1em 0em;
+	}
+
+	#header-title {
+		display: block;
 	}
 
 	.artist-card {

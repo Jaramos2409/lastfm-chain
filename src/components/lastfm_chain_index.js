@@ -65,7 +65,7 @@ class LastFMChainIndex extends Component {
                         {...fields.username_1.input}
                     />
                 </FormGroup>
-                <FormGroup  className="mb-2 mr-sm-2 mb-sm-0 pb-2">
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0 pb-2">
                     <Input 
                         className="form-control"
                         type="text"
@@ -84,7 +84,7 @@ class LastFMChainIndex extends Component {
                         })}
                     </Input>
                 </FormGroup>
-                <Button type="submit">{this.state.submitButtonText}</Button>
+                <Button type="submit">{fields.submitButtonName}</Button>
                 <div className="text-help">
                     {fields.username_1.meta.touched && fields.username_1.meta.error && <span className="last-fm-red-text ">{fields.username_1.meta.error}</span>}
                 </div>
@@ -138,7 +138,7 @@ class LastFMChainIndex extends Component {
                                     <CardText>Also select the timeframe in which you want to compare.</CardText>
                                     <div className="col-centered">
                                     <Form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-                                        <Fields names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields.bind(this)}/>
+                                        <Fields submitButtonName={this.state.submitButtonText} names={[ 'username_1', 'username_2', 'timeframe' ]} component={this.renderFields}/>
                                     </Form> 
                                     {error && <strong>{error}</strong>}
                                     </div>

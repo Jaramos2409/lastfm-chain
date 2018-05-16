@@ -1,9 +1,9 @@
 {
-  "homepage": "./",
+  "homepage": "/",
   "name": "lastfm-compare",
   "version": "0.1.1",
   "private": true,
-  "dependencies": {
+  "dependencies": { 
     "bootstrap": "^4.1.1",
     "chart.js": "^1.1.1",
     "react": "^16.3.2",
